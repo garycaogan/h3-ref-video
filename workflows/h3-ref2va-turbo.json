@@ -1,0 +1,689 @@
+{
+ "92": {
+  "inputs": {
+   "filename_prefix": "video/MiniMax_H3",
+   "format": "auto",
+   "format.codec": "auto",
+   "codec": "auto",
+   "fw_video_preview": "",
+   "video": [
+    "130",
+    0
+   ]
+  },
+  "class_type": "SaveVideo",
+  "_meta": {
+   "title": "Save Video"
+  }
+ },
+ "115": {
+  "inputs": {
+   "aspect_ratio": "4:3 (Standard)",
+   "megapixels": [
+    "225",
+    0
+   ],
+   "multiple": 32
+  },
+  "class_type": "ResolutionSelector",
+  "_meta": {
+   "title": "Resolution Selector"
+  }
+ },
+ "119": {
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  },
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "120": {
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  },
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "121": {
+  "inputs": {
+   "samples": [
+    "125",
+    0
+   ],
+   "vae": [
+    "120",
+    0
+   ]
+  },
+  "class_type": "VAEDecodeAudio",
+  "_meta": {
+   "title": "VAE Decode Audio"
+  }
+ },
+ "122": {
+  "inputs": {
+   "samples": [
+    "125",
+    0
+   ],
+   "vae": [
+    "119",
+    0
+   ]
+  },
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "VAE Decode"
+  }
+ },
+ "123": {
+  "inputs": {
+   "sampler_name": "res_multistep"
+  },
+  "class_type": "KSamplerSelect",
+  "_meta": {
+   "title": "KSamplerSelect"
+  }
+ },
+ "124": {
+  "inputs": {
+   "scheduler": "simple",
+   "steps": 25,
+   "denoise": 1,
+   "model": [
+    "136",
+    0
+   ]
+  },
+  "class_type": "BasicScheduler",
+  "_meta": {
+   "title": "BasicScheduler"
+  }
+ },
+ "125": {
+  "inputs": {
+   "noise": [
+    "129",
+    0
+   ],
+   "guider": [
+    "126",
+    0
+   ],
+   "sampler": [
+    "123",
+    0
+   ],
+   "sigmas": [
+    "124",
+    0
+   ],
+   "latent_image": [
+    "230",
+    1
+   ]
+  },
+  "class_type": "SamplerCustomAdvanced",
+  "_meta": {
+   "title": "SamplerCustomAdvanced"
+  }
+ },
+ "126": {
+  "inputs": {
+   "model": [
+    "136",
+    0
+   ],
+   "conditioning": [
+    "230",
+    0
+   ]
+  },
+  "class_type": "BasicGuider",
+  "_meta": {
+   "title": "Basic Guider"
+  }
+ },
+ "127": {
+  "inputs": {
+   "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  },
+  "class_type": "UNETLoader",
+  "_meta": {
+   "title": "Load Diffusion Model"
+  }
+ },
+ "128": {
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+   "type": "minimax",
+   "device": "default"
+  },
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "Load CLIP"
+  }
+ },
+ "129": {
+  "inputs": {
+   "noise_seed": 1004092662087018
+  },
+  "class_type": "RandomNoise",
+  "_meta": {
+   "title": "RandomNoise"
+  }
+ },
+ "130": {
+  "inputs": {
+   "fps": 24,
+   "bit_depth": 8,
+   "color_space": "sRGB",
+   "codec": "none",
+   "images": [
+    "122",
+    0
+   ],
+   "audio": [
+    "121",
+    0
+   ]
+  },
+  "class_type": "CreateVideo",
+  "_meta": {
+   "title": "Create Video"
+  }
+ },
+ "132": {
+  "inputs": {
+   "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17",
+   "values.a": [
+    "205",
+    0
+   ]
+  },
+  "class_type": "ComfyMathExpression",
+  "_meta": {
+   "title": "Math Expression"
+  }
+ },
+ "135": {
+  "inputs": {
+   "sage_attention": "auto",
+   "allow_compile": false,
+   "model": [
+    "127",
+    0
+   ]
+  },
+  "class_type": "PathchSageAttentionKJ",
+  "_meta": {
+   "title": "Patch Sage Attention KJ"
+  }
+ },
+ "136": {
+  "inputs": {
+   "reuse_threshold": 0.20000000000000004,
+   "start_percent": 0.15,
+   "end_percent": 0.9000000000000001,
+   "verbose": false,
+   "model": [
+    "135",
+    0
+   ]
+  },
+  "class_type": "EasyCache",
+  "_meta": {
+   "title": "EasyCache"
+  }
+ },
+ "139": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "161": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "164": {
+  "inputs": {
+   "Value": 5
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "191": {
+  "inputs": {
+   "Value": 6
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "192": {
+  "inputs": {
+   "Value": 7
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "193": {
+  "inputs": {
+   "Value": 8
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "194": {
+  "inputs": {
+   "Value": 9
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "195": {
+  "inputs": {
+   "Value": 10
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "196": {
+  "inputs": {
+   "Value": 11
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "197": {
+  "inputs": {
+   "Value": 12
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "198": {
+  "inputs": {
+   "Value": 13
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "199": {
+  "inputs": {
+   "Value": 14
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "200": {
+  "inputs": {
+   "Value": 15
+  },
+  "class_type": "DF_Int_to_Float",
+  "_meta": {
+   "title": "Int to Float"
+  }
+ },
+ "205": {
+  "inputs": {
+   "select": 11,
+   "sel_mode": false,
+   "input1": [
+    "164",
+    0
+   ],
+   "input2": [
+    "191",
+    0
+   ],
+   "input3": [
+    "192",
+    0
+   ],
+   "input4": [
+    "193",
+    0
+   ],
+   "input5": [
+    "194",
+    0
+   ],
+   "input6": [
+    "195",
+    0
+   ],
+   "input7": [
+    "196",
+    0
+   ],
+   "input8": [
+    "197",
+    0
+   ],
+   "input9": [
+    "198",
+    0
+   ],
+   "input10": [
+    "199",
+    0
+   ],
+   "input11": [
+    "200",
+    0
+   ]
+  },
+  "class_type": "ImpactSwitch",
+  "_meta": {
+   "title": "Switch (Any)"
+  }
+ },
+ "206": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "222": {
+  "inputs": {
+   "value": 0.5
+  },
+  "class_type": "PrimitiveFloat",
+  "_meta": {
+   "title": "Float"
+  }
+ },
+ "223": {
+  "inputs": {
+   "value": 1
+  },
+  "class_type": "PrimitiveFloat",
+  "_meta": {
+   "title": "Float"
+  }
+ },
+ "225": {
+  "inputs": {
+   "select": 1,
+   "sel_mode": false,
+   "input1": [
+    "222",
+    0
+   ],
+   "input2": [
+    "223",
+    0
+   ]
+  },
+  "class_type": "ImpactSwitch",
+  "_meta": {
+   "title": "Switch (Any)"
+  }
+ },
+ "226": {
+  "inputs": {
+   "anything": [
+    "115",
+    0
+   ]
+  },
+  "class_type": "ShowAnything|Mie",
+  "_meta": {
+   "title": "Show Anything 🐑"
+  }
+ },
+ "227": {
+  "inputs": {
+   "anything": [
+    "115",
+    1
+   ]
+  },
+  "class_type": "ShowAnything|Mie",
+  "_meta": {
+   "title": "Show Anything 🐑"
+  }
+ },
+ "230": {
+  "inputs": {
+   "prompt": [
+    "250",
+    0
+   ],
+   "width": [
+    "115",
+    0
+   ],
+   "height": [
+    "115",
+    1
+   ],
+   "length": [
+    "132",
+    1
+   ],
+   "ref_image_size": "match",
+   "clip": [
+    "128",
+    0
+   ],
+   "vae": [
+    "119",
+    0
+   ],
+   "audio_vae": [
+    "120",
+    0
+   ],
+   "ref_images.ref_image_0": [
+    "231",
+    0
+   ],
+   "ref_images.ref_image_1": [
+    "232",
+    0
+   ],
+   "ref_images.ref_image_2": [
+    "233",
+    0
+   ],
+   "ref_images.ref_image_3": [
+    "234",
+    0
+   ],
+   "ref_images.ref_image_4": [
+    "235",
+    0
+   ],
+   "ref_images.ref_image_5": [
+    "236",
+    0
+   ],
+   "ref_images.ref_image_6": [
+    "237",
+    0
+   ],
+   "ref_images.ref_image_7": [
+    "238",
+    0
+   ],
+   "ref_images.ref_image_8": [
+    "239",
+    0
+   ],
+   "ref_audios.ref_audio_0": [
+    "247",
+    0
+   ],
+   "ref_audios.ref_audio_1": [
+    "248",
+    0
+   ],
+   "ref_audios.ref_audio_2": [
+    "249",
+    0
+   ]
+  },
+  "class_type": "MiniMaxH3ReferenceToVideo",
+  "_meta": {
+   "title": "MiniMax H3 Reference to Video"
+  }
+ },
+ "231": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "232": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "233": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "234": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "235": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "236": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "237": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "238": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "239": {
+  "inputs": {
+   "image": "None"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "247": {
+  "inputs": {
+   "audio": "None",
+   "audioUI": ""
+  },
+  "class_type": "LoadAudio",
+  "_meta": {
+   "title": "Load Audio"
+  }
+ },
+ "248": {
+  "inputs": {
+   "audio": "None",
+   "audioUI": ""
+  },
+  "class_type": "LoadAudio",
+  "_meta": {
+   "title": "Load Audio"
+  }
+ },
+ "249": {
+  "inputs": {
+   "audio": "None",
+   "audioUI": ""
+  },
+  "class_type": "LoadAudio",
+  "_meta": {
+   "title": "Load Audio"
+  }
+ },
+ "250": {
+  "inputs": {
+   "prompt": ""
+  },
+  "class_type": "CR Prompt Text",
+  "_meta": {
+   "title": "⚙️ CR Prompt Text"
+  }
+ }
+}
