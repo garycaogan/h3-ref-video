@@ -14,9 +14,11 @@ python h3ref.py film jobs/快递 --film examples/film.example.json
 
 ## 效果
 
-**同一个脚本、同一对演员**：左边 Seedance 2.0 mini（一条 ¥1.53），右边 H3 每个镜头先垫一张分镜图（7 张图 ¥1.06 + 生成 ¥0.15，一共约 ¥1.2）。画面质感基本打平，H3 的舞台灯光更足，Seedance 哭得更夸张。点图看原视频（有声）。
+**同一个脚本、同一对演员**：左边 Seedance 2.0 mini（一条 ¥1.53），右边 H3 每个镜头先垫一张分镜图（7 张图 ¥1.06 + 生成 ¥0.15，一共约 ¥1.2）。画面质感基本打平，H3 的舞台灯光更足，Seedance 哭得更夸张。动图没有声音，每张下面可以下载原视频。
 
-[![左边 Seedance，右边 H3 加每镜分镜图](docs/media/qiangjinmai-seedance-vs-h3.gif)](docs/media/qiangjinmai-seedance-vs-h3.mp4)
+![左边 Seedance，右边 H3 加每镜分镜图](docs/media/qiangjinmai-seedance-vs-h3.gif)
+
+有声原视频：[下载 mp4](docs/media/qiangjinmai-seedance-vs-h3.mp4?raw=true)
 
 H3 这条用的 7 张分镜图，第一张画好以后，后面每张都带着它当参考，人和场景才前后一致：
 
@@ -24,11 +26,15 @@ H3 这条用的 7 张分镜图，第一张画好以后，后面每张都带着�
 
 **同一个镜头，左边 H3 直出，右边先画一张分镜图再出**：
 
-[![左边 H3 直出，右边垫分镜图](docs/media/plain-vs-storyboard.gif)](docs/media/plain-vs-storyboard.mp4)
+![左边 H3 直出，右边垫分镜图](docs/media/plain-vs-storyboard.gif)
+
+有声原视频：[下载 mp4](docs/media/plain-vs-storyboard.mp4?raw=true)
 
 **中文真人哭戏，四个版本盲评**（静音）：左上 Seedance，右上 H3 直出（输），左下 H3 垫一张首帧（4:0 赢 Seedance），右下 H3 每个镜头垫分镜图：
 
-[![病房哭戏四个版本](docs/media/hospital-four-versions.gif)](docs/media/hospital-four-versions.mp4)
+![病房哭戏四个版本](docs/media/hospital-four-versions.gif)
+
+原视频：[下载 mp4](docs/media/hospital-four-versions.mp4?raw=true)
 
 **同一段提示词**：左边是给 Seedance 的写法，红字就是会把背景音乐和字幕招进来的「不要……」；右边是改写后的 H3 官方六段式：
 
