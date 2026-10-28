@@ -2,7 +2,7 @@
 
 像给 Seedance 写提示词、给参考图那样，在 RunningHub 上用 MiniMax H3 出视频：你照常写中文分镜和「参考图片1、参考图片2…」，工具把它改写成 MiniMax 官方的六段式格式再提交；一份分镜脚本还能整条出片，每个镜头先用 GPT Image 2.5 画一张分镜图垫给 H3，人物、道具、比例照图来。
 
-为什么折腾这个：H3 在 RunningHub 上按机器时间收费，标准机型每输出一秒大约 ¥0.009，Seedance 2.0 mini 480p 是 ¥0.102，差了十倍多。一条 27 秒、11 个镜头的竖屏短片，用这个仓库的 `film` 命令跑：11 张 1K 分镜图 ¥1.85，H3 两段并行生成 ¥0.27，一共 ¥2.12，从开始到出片 9 分钟；同长度 Seedance mini 约 ¥2.8，而且分镜图版本保住了直出版丢掉的笑点（见下面「我们测出来的结论」）。
+为什么折腾这个：H3 在 RunningHub 上按机器时间收费，标准机型每输出一秒大约 ¥0.009，Seedance 2.0 mini 480p 是 ¥0.102，差了十倍多。一条 27 秒、11 个镜头的竖屏短片，用这个仓库的 `film` 命令跑：11 张 1K 分镜图 ¥1.85，H3 两段并行生成 ¥0.27，一共 ¥2.12，从开始到出片 9 分钟；同长度 Seedance mini 约 ¥2.8。
 
 ```bash
 # 一条片段：提示词和参考图跟给 Seedance 的一样
@@ -11,6 +11,28 @@ python h3ref.py one --prompt 提示词.txt --image 角色.jpg --image 场景.jpg
 # 整条片：分镜脚本 → 切段、每镜分镜图、改写、生成、查烧字幕、拼片
 python h3ref.py film jobs/快递 --film examples/film.example.json
 ```
+
+## 效果
+
+**同一个脚本、同一对演员**：左边 Seedance 2.0 mini（一条 ¥1.53），右边 H3 每个镜头先垫一张分镜图（7 张图 ¥1.06 + 生成 ¥0.15，一共约 ¥1.2）。画面质感基本打平，H3 的舞台灯光更足，Seedance 哭得更夸张。点图看原视频（有声）。
+
+[![左边 Seedance，右边 H3 加每镜分镜图](docs/media/qiangjinmai-seedance-vs-h3.gif)](docs/media/qiangjinmai-seedance-vs-h3.mp4)
+
+H3 这条用的 7 张分镜图，第一张画好以后，后面每张都带着它当参考，人和场景才前后一致：
+
+![7 张分镜图](docs/media/qiangjinmai-storyboard-frames.jpg)
+
+**同一个镜头，左边 H3 直出，右边先画一张分镜图再出**：
+
+[![左边 H3 直出，右边垫分镜图](docs/media/plain-vs-storyboard.gif)](docs/media/plain-vs-storyboard.mp4)
+
+**中文真人哭戏，四个版本盲评**（静音）：左上 Seedance，右上 H3 直出（输），左下 H3 垫一张首帧（4:0 赢 Seedance），右下 H3 每个镜头垫分镜图：
+
+[![病房哭戏四个版本](docs/media/hospital-four-versions.gif)](docs/media/hospital-four-versions.mp4)
+
+**同一段提示词**：左边是给 Seedance 的写法，红字就是会把背景音乐和字幕招进来的「不要……」；右边是改写后的 H3 官方六段式：
+
+![提示词改写前后](docs/media/prompt-seedance-vs-h3.jpg)
 
 ## 准备
 
@@ -44,7 +66,7 @@ python h3ref.py film jobs/快递 --film examples/film.example.json
 
 | 模式 | 做法 | 什么时候用 |
 |---|---|---|
-| `shot` | 每个镜头一张分镜图 | 默认。道具大小、位置、特殊状态（迷你的东西、被盖住的人）要照剧本来的戏 |
+| `shot` | 每个镜头一张分镜图 | 默认。人多、镜头多，站位和道具要照剧本来的戏 |
 | `first` | 每段只给第一个镜头一张，后一段再接前一段的最后一帧 | 想省图钱、对白戏 |
 | `none` | 不画图，只给角色图，各段接着上一段的最后一帧 | 动漫、cos 这类 H3 直出就够好的线 |
 
@@ -54,7 +76,7 @@ python h3ref.py film jobs/快递 --film examples/film.example.json
 
 - **动漫和 coser 片，H3 直出已经赢 Seedance**，成本约十分之一。两个镜头各 4 轮盲评，H3 4:0、4:0。
 - **中文真人对白戏，H3 直出会输**（0:4）；垫一张首帧以后哭戏能赢（4:0），带货戏还是输。
-- **每镜分镜图对道具尺寸这类设定帮助最大**：一条「人在微缩地铁站里挤迷你电梯、迷你列车」的短片，直出版和每段一张首帧的版本都把迷你道具画成了正常大小，笑点没了；每镜分镜图的版本每个镜头都保住了，盲评 2:0 赢另外两版。
+- **每镜分镜图能让 H3 稳稳追上 Seedance**：同一个脚本做了 15 条真人 cos 短片，8 条用 Seedance、7 条用 H3 每镜分镜图。同一对演员的两条放在一起，画面质感基本打平，H3 舞台灯光更足，Seedance 哭得更夸张；钱上 Seedance 一条 ¥1.53，H3 加 7 张分镜图约 ¥1.2。分镜图最管用的是让 H3 照着剧本演：人站在哪、镜头从哪起、谁先开口。
 - **官方格式是关键**：Seedance 写法的提示词直接给 H3，7 段里 7 段被垫了背景音乐，中文对白会烧字幕，表演也收着。工作流没有负面提示词，「不要背景音乐、不要字幕」反而会把音乐和字幕招进来。改成官方六段式、去掉所有否定句、配乐写 N/A 之后，13 段里只剩 1 段有音乐，和 Seedance 逐段盲评 H3 赢 5、Seedance 赢 1、平 5。
 
 还要注意的：

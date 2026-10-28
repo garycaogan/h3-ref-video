@@ -10,4 +10,4 @@ python -m unittest discover -s tests -v
 
 动了生成、审片或拼片这些要花钱的环节，PR 里写一下真跑的结果：用 `one` 跑一条 5 秒片段（约 ¥0.05），动了分镜图或整片流程就用 `examples/film.example.json` 配一张自己的角色图跑一遍 `film`（约 ¥1.5）。
 
-不要把 key、任务目录、生成的视频和别人的素材提交进来；节点图只放 `workflows/` 里注明了作者和出处的那种。
+不要把 key、任务目录、生成的视频和别人的素材提交进来（`docs/media/` 里的演示素材除外，它们不进打包）；节点图只放 `workflows/` 里注明了作者和出处的那种。
