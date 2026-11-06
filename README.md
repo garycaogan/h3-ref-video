@@ -45,7 +45,7 @@ H3 这条用的 7 张分镜图，第一张画好以后，后面每张都带着�
 1. **Python 3.10+、ffmpeg**，`pip install -r requirements.txt`。
 2. **两个 key**，复制 `.env.example` 成 `.env` 填上：
    - `RUNNINGHUB_API_KEY`：[RunningHub](https://www.runninghub.cn) 控制台「API 调用」。会员 key 一次跑 5 个、扣 RH 币；企业 key 扣钱包，能同时跑很多个。
-   - `APIMART_API_KEY`：[APIMart](https://apimart.ai)，画分镜图（GPT Image 2.5）和查烧字幕（Gemini 3.8 Flash）。
+   - `APIMART_API_KEY`：[APIMart](https://apimart.ai/register?aff=J2lV)（推荐链接），画分镜图（GPT Image 2.5）和查烧字幕（Gemini 3.8 Flash）。
 3. **改写提示词的模型**：装了 [Claude Code](https://claude.com/claude-code) 并登录过，默认就用它（我们一直用的是这个）；没装就走 APIMart 上的模型（`H3_REWRITER=llm`，默认 `deepseek-v4-pro`，也可以换成任何 OpenAI 兼容接口）。DeepSeek 改写我们试过，格式检查能过；上 H3 出片对比过的只有 Claude 改写的版本。
 4. **MiniMax 官方提示词指南**：工具运行时从 [MiniMax-AI/MiniMax-H3](https://github.com/MiniMax-AI/MiniMax-H3/tree/main/skills/h3-prompt-writing) 现取 `ref-en.txt` 并缓存，没有随仓库分发（它属于 MiniMax H3 Community License 下的文档）。网络不通就自己下载，用 `H3_GUIDE_FILE` 指过去。
 
